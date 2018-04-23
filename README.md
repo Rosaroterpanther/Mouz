@@ -1,2 +1,4 @@
 # Mouz
-Mouse Tools
+Collection of Mouse and Keyboard Tools in Java
+
+
