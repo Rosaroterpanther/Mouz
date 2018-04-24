@@ -13,9 +13,8 @@ public class Processes {
 	      BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 	      while ((line = input.readLine()) != null) {
 	          if (!line.trim().equals("")) {
-	              // keep only the process name
 	              line = line.substring(1);
-	              processes.add(line.substring(0, line.indexOf("")));
+	              processes.add(line);
 	          }
 
 	      }
@@ -26,5 +25,6 @@ public class Processes {
 	    }
 	    return processes;
 	  }
+	
 	
 }

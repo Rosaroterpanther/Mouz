@@ -18,13 +18,10 @@ public class Controller {
 	
 	public static BufferedReader reader;
 	
+	public static Processes p;
+	
 	public static void main(String[] args) {
 		System.out.println("Initalize...");
-		
-		//
-		Processes p = new Processes();
-		p.processes = p.listRunningProcesses();
-		//
 		
 		init();
 		System.out.println("Aktuelle Uhrzeit: " + startDate.getHours() + ":" + startDate.getMinutes() + ":" + startDate.getSeconds());
@@ -41,9 +38,22 @@ public class Controller {
 		
 		// TODO: Init values
 		clicksCounter = 0;
+		
+		p = new Processes();
+		p.processes = p.listRunningProcesses();
 	}
 	
 	public static void listen(){
+		
+		System.out.println("===================================");
+		Iterator<String> it = p.processes.iterator();
+	      int i = 0;
+	      
+	      while (it.hasNext()) {
+	    	  System.out.println(""+i+": "+it.next());
+
+	      }
+		System.out.println("===================================");
 		
 		System.out.println("To exit, enter: exit()");
 		
