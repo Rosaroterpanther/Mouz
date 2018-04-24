@@ -1,6 +1,9 @@
 import java.io.*;
 import java.util.*;
 
+import com.sun.jna.Native;
+import com.sun.jna.PointerType;
+
 public class Processes {
 
 	public List<String> processes;
@@ -26,6 +29,12 @@ public class Processes {
 	    return processes;
 	  }
 	
+	
+	public void printProcess(List<String> processes) {
+		printProcessList(processes);
+		printForegroundWindow();
+	}
+	
 	public void printProcessList(List<String> processes){
 		System.out.println("===================================");
 		Iterator<String> it = processes.iterator();
@@ -35,7 +44,15 @@ public class Processes {
 	    	  System.out.println(""+i+": "+it.next());
 
 	      }
-		System.out.println("===================================");
+	}
+	
+	public void printForegroundWindow() {
+		byte[] windowText = new byte[512];
+
+	      PointerType hwnd = User32.INSTANCE.GetForegroundWindow(); // then you can call it!
+	      User32.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
+	      System.out.println("#####::"+Native.toString(windowText)+"::####");
+	      System.out.println("===================================");
 	}
 	
 	

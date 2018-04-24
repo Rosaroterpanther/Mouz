@@ -1,8 +1,14 @@
-import java.util.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.Math;
+
+import java.util.Date;
+
+import com.sun.jna.*;
+import com.sun.jna.platform.win32.WinDef.HWND;
+import com.sun.jna.win32.StdCallLibrary;
+
+
 
 public class Controller implements Runnable{
 	
@@ -25,7 +31,6 @@ public class Controller implements Runnable{
 	
 	//Threads
 	public static Thread thread_exit;
-
 	
 	public static void main(String[] args) {
 		System.out.println("Initalize...");
@@ -61,7 +66,7 @@ public class Controller implements Runnable{
 		System.out.println("To exit, enter: exit()");
 		
 		p.processes = p.listRunningProcesses();
-		p.printProcessList(p.processes);
+		p.printProcess(p.processes);
 		
 		//Start Thread
 		thread_exit.start();
@@ -71,14 +76,18 @@ public class Controller implements Runnable{
 			
 			// TODO: Listen for Mouse clicks ...
 			// TODO: Listen for End Signal
+			
+			//TODO: Fix this
 			curDate = new Date();
 			
 			if((curDate.getMinutes()-lastDate.getMinutes()) > 1) {
 				lastDate = new Date();
-
-				p.processes = p.listRunningProcesses();
-				p.printProcessList(p.processes);
+				
+				
 			}
+			
+			p.processes = p.listRunningProcesses();
+			p.printProcess(p.processes);
 			
 			if(exit) {
 				break;
