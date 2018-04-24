@@ -23,6 +23,10 @@ public class Controller implements Runnable{
 	
 	public static Processes p;
 	
+	//Threads
+	public static Thread thread_exit;
+
+	
 	public static void main(String[] args) {
 		System.out.println("Initalize...");
 		
@@ -48,6 +52,8 @@ public class Controller implements Runnable{
 		// Init Processes
 		p = new Processes();
 		
+		// Init Threads
+		thread_exit = new Thread( new Controller() );
 	}
 	
 	public static void listen(){
@@ -56,6 +62,10 @@ public class Controller implements Runnable{
 		
 		p.processes = p.listRunningProcesses();
 		p.printProcessList(p.processes);
+		
+		//Start Thread
+		thread_exit.start();
+		
 		
 		while(true){
 			
@@ -69,6 +79,11 @@ public class Controller implements Runnable{
 				p.processes = p.listRunningProcesses();
 				p.printProcessList(p.processes);
 			}
+			
+			if(exit) {
+				break;
+			}
+			
 			try{
 			    Thread.sleep(1000);
 			}catch(InterruptedException ex){
@@ -98,7 +113,7 @@ public class Controller implements Runnable{
 				e.printStackTrace();
 			} 
 			if(input.equals("exit()")) {
-				// TODO  break other while
+				exit = true;
 				break;
 			}
 
