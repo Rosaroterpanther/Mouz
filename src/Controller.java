@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.Math;
 
-public class Controller {
+public class Controller implements Runnable{
 	
 	/*
 	 *  Prototyp V.1
@@ -12,9 +12,12 @@ public class Controller {
 	 * */
 	
 	public static Date startDate;
+	public static Date lastDate;
+	public static Date curDate;
 	public static Date endDate;
 	
 	public static int clicksCounter;
+	public static boolean exit;
 	
 	public static BufferedReader reader;
 	
@@ -31,48 +34,46 @@ public class Controller {
 	
 	
 	public static void init() {
+		// Init Dates
 		startDate = new Date();
+		lastDate = new Date();
 		
 		// TODO: Init Observer/Mouse Listener
 		reader = new BufferedReader(new InputStreamReader(System.in));
 		
 		// TODO: Init values
 		clicksCounter = 0;
+		exit = false;
 		
+		// Init Processes
 		p = new Processes();
-		p.processes = p.listRunningProcesses();
+		
 	}
 	
 	public static void listen(){
 		
-		System.out.println("===================================");
-		Iterator<String> it = p.processes.iterator();
-	      int i = 0;
-	      
-	      while (it.hasNext()) {
-	    	  System.out.println(""+i+": "+it.next());
-
-	      }
-		System.out.println("===================================");
-		
 		System.out.println("To exit, enter: exit()");
+		
+		p.processes = p.listRunningProcesses();
+		p.printProcessList(p.processes);
 		
 		while(true){
 			
 			// TODO: Listen for Mouse clicks ...
 			// TODO: Listen for End Signal
-			String input = null;
-			try {
-				input = reader.readLine();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
+			curDate = new Date();
 			
-			if(input.equals("exit()")) {
-				break;
+			if((lastDate.getMinutes()-curDate.getMinutes()) > 1) {
+				lastDate = new Date();
+				
+				p.processes = p.listRunningProcesses();
+				p.printProcessList(p.processes);
 			}
-
+			try{
+			    Thread.sleep(1000);
+			}catch(InterruptedException ex){
+			    Thread.currentThread().interrupt();
+			}
 		}
 	}
 	
@@ -85,4 +86,23 @@ public class Controller {
 		System.out.println("Programm lief: " + runnedHours + ":" + runnedMinutes + ":" + runnedSeconds);
 		
 	}
+
+
+	public void run() {
+		while(true){
+			String input = null;
+			try {
+				input = reader.readLine();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			if(input.equals("exit()")) {
+				// TODO  break other while
+				break;
+			}
+
+		}	
+	}
+	
 }

@@ -26,5 +26,17 @@ public class Processes {
 	    return processes;
 	  }
 	
+	public void printProcessList(List<String> processes){
+		System.out.println("===================================");
+		Iterator<String> it = processes.iterator();
+	      int i = 0;
+	      
+	      while (it.hasNext()) {
+	    	  System.out.println(""+i+": "+it.next());
+
+	      }
+		System.out.println("===================================");
+	}
+	
 	
 }
