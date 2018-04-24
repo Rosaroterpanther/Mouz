@@ -73,9 +73,9 @@ public class Controller implements Runnable{
 			// TODO: Listen for End Signal
 			curDate = new Date();
 			
-			if((lastDate.getMinutes()-curDate.getMinutes()) > 1) {
+			if((curDate.getMinutes()-lastDate.getMinutes()) > 1) {
 				lastDate = new Date();
-				
+
 				p.processes = p.listRunningProcesses();
 				p.printProcessList(p.processes);
 			}
