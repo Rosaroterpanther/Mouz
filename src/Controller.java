@@ -20,6 +20,12 @@ public class Controller {
 	
 	public static void main(String[] args) {
 		System.out.println("Initalize...");
+		
+		//
+		Processes p = new Processes();
+		p.processes = p.listRunningProcesses();
+		//
+		
 		init();
 		System.out.println("Aktuelle Uhrzeit: " + startDate.getHours() + ":" + startDate.getMinutes() + ":" + startDate.getSeconds());
 		listen();
