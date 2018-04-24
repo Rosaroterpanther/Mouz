@@ -47,7 +47,13 @@ public class Processes {
 	}
 	
 	public void printForegroundWindow() {
-		byte[] windowText = new byte[512];
+		/*
+		 * Source: https://stackoverflow.com/questions/5767104/using-jna-to-get-getforegroundwindow
+		 * Libarys: https://github.com/java-native-access/jna
+		 * 
+		 * */
+		
+		  byte[] windowText = new byte[512];
 
 	      PointerType hwnd = User32.INSTANCE.GetForegroundWindow(); // then you can call it!
 	      User32.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
