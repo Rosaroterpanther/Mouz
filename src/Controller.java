@@ -1,3 +1,4 @@
+import java.awt.EventQueue;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -32,6 +33,9 @@ public class Controller implements Runnable{
 	//Threads
 	public static Thread thread_exit;
 	
+	//Frame
+	public static Frame window;
+	
 	public static void main(String[] args) {
 		System.out.println("Initalize...");
 		
@@ -59,12 +63,26 @@ public class Controller implements Runnable{
 		
 		// Init Threads
 		thread_exit = new Thread( new Controller() );
+		
+		/**
+		 * Launch the application.
+		 */
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						window = new Frame();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
 	}
 	
 	public static void listen(){
 		
 		System.out.println("To exit, enter: exit()");
 		
+		/* WARNING Wir brauchen diesen normalen Otuput derzeit sonst Kacken unsere Threas ab ... */
 		p.processes = p.listRunningProcesses();
 		p.printProcess(p.processes);
 		
@@ -87,7 +105,7 @@ public class Controller implements Runnable{
 			}
 			
 			p.processes = p.listRunningProcesses();
-			p.printProcess(p.processes);
+			p.printProcess(p.processes, window);
 			
 			if(exit) {
 				break;

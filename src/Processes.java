@@ -35,6 +35,23 @@ public class Processes {
 		printForegroundWindow();
 	}
 	
+	public void printProcess(List<String> processes, Frame frame) {
+		printProcessList(processes, frame);
+		printForegroundWindow(frame);
+	}
+	
+	public void printProcessList(List<String> processes, Frame frame) {
+		String taskList = "";
+		Iterator<String> it = processes.iterator();
+	      int i = 0;
+	      
+	      while (it.hasNext()) {
+	    	  taskList = taskList + System.lineSeparator() + i + ": " + it.next(); 
+	      }
+	      
+	      frame.setTaskList(taskList);
+	}
+	
 	public void printProcessList(List<String> processes){
 		System.out.println("===================================");
 		Iterator<String> it = processes.iterator();
@@ -59,6 +76,20 @@ public class Processes {
 	      User32.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
 	      System.out.println("#####::"+Native.toString(windowText)+"::####");
 	      System.out.println("===================================");
+	}
+	
+	public void printForegroundWindow(Frame frame) {
+		/*
+		 * Source: https://stackoverflow.com/questions/5767104/using-jna-to-get-getforegroundwindow
+		 * Libarys: https://github.com/java-native-access/jna
+		 * 
+		 * */
+		
+		  byte[] windowText = new byte[512];
+
+	      PointerType hwnd = User32.INSTANCE.GetForegroundWindow(); // then you can call it!
+	      User32.INSTANCE.GetWindowTextA(hwnd, windowText, 512);
+	      frame.setCurrentTask(""+Native.toString(windowText));
 	}
 	
 	
