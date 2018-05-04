@@ -7,6 +7,8 @@ Usage
 - Add Libarys
 - Run Controller
 
+Requirements: Windows machine
+
 Libarys
 ---
 | file | version | license | link |
